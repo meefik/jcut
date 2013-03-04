@@ -41,22 +41,21 @@ public class Diff {
             buf = bw;
             Path start = Paths.get(root);
             Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
-                private void writePath(String path, long time, int mode) throws IOException {
+                private void writePath(String path, long time) throws IOException {
                     bw.write(path.replaceFirst(root, "") + "\t" +
-                            String.valueOf(time) + "\t" +
-                            String.valueOf(mode) + "\n");                    
+                            String.valueOf(time) + "\n");                    
                 }
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
                     throws IOException
                 {
-                    writePath(file.toString(), attrs.lastModifiedTime().to(TimeUnit.SECONDS), 0);
+                    writePath(file.toString(), attrs.lastModifiedTime().to(TimeUnit.SECONDS));
                     return FileVisitResult.CONTINUE;
                 }
                 @Override
                 public FileVisitResult postVisitDirectory(Path dir,
                     IOException exc) throws IOException {
-                    writePath(dir.toString(), 0, 1);
+                    writePath(dir.toString(), 0);
                     return FileVisitResult.CONTINUE;
                 }
             });
