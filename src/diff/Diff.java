@@ -25,6 +25,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import static java.nio.file.StandardCopyOption.*;
+import java.util.Arrays;
 
 /**
  *
@@ -59,6 +60,42 @@ public class Diff {
                     return FileVisitResult.CONTINUE;
                 }
             });
+        } finally {
+            closeQuietly(buf);
+        }
+    }
+    
+    private static void scanDir(String dir, final File root, BufferedWriter bw) throws IOException  {
+        File[] list = root.listFiles();
+        Arrays.sort(list, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                return o1.getPath().compareTo(o2.getPath());
+            }
+        });
+        if (list == null) return;
+        for (File f : list) {
+            //System.out.println(f.getPath());
+            //if (f.getName().equals(file)) continue;
+            long lastModified = 0;
+            if (f.isDirectory()) {
+                scanDir(dir, f, bw);
+            } else {
+                lastModified = f.lastModified();
+            }
+            bw.write(f.getPath().replaceFirst(dir, "") + "\t" +
+                            String.valueOf(lastModified) + "\n");    
+        }
+    }
+    
+    private static void find(String dir, File root, File out) throws IOException {
+        Charset cs = Charset.defaultCharset();
+        BufferedWriter buf = null;
+        try {
+            final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    new GZIPOutputStream(new FileOutputStream(out)), cs));
+            buf = bw;
+            scanDir(dir, root, bw);
         } finally {
             closeQuietly(buf);
         }
@@ -152,9 +189,10 @@ public class Diff {
     public static void go(String dir, String out) {
         try {
             File unsortedList = File.createTempFile("unsorted", "gz");
-            scan(dir, unsortedList);
+            //scan(dir, unsortedList);
             File sortedList = File.createTempFile("sorted", "gz");
-            sort(unsortedList, sortedList);
+            //sort(unsortedList, sortedList);
+            find(dir, new File(dir), sortedList);
             Files.delete(unsortedList.toPath());
             File lastsyncList = new File(out+"lastsync.gz");
             File modifiedList = new File(out+"modified.gz");
