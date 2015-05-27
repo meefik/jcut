@@ -28,7 +28,7 @@ public class Diff {
         Arrays.sort(list, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                return o1.getPath().compareTo(o2.getPath());
+                return o2.getPath().compareTo(o1.getPath());
             }
         });
         if (list == null) {
