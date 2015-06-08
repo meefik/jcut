@@ -15,7 +15,7 @@ Example:
 
     $ java -jar jcut.jar /path/to/dir
     add	/test/dir1	0
-    del	/test/aaa	0
+    mod	/test/aaa	1433802751000
     del	/test/dir2/file1	1433802787000
     del	/test/dir2	0
     Time: 3742 ms
