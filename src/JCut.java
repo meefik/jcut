@@ -42,10 +42,12 @@ public class JCut {
             File snapshot = File.createTempFile("snapshot", "gz");
             long t = System.currentTimeMillis();
             Diff.snapshot(dir, snapshot);
-            long n = Diff.compare(laststate, snapshot);
+            if (laststate.length() > 0) {
+                long n = Diff.compare(laststate, snapshot);
+                System.out.println("Time: " + (System.currentTimeMillis() - t) +" ms");
+                System.out.println("Processed: " + String.valueOf(n)+" items");
+            }
             Files.move(snapshot.toPath(), laststate.toPath(), REPLACE_EXISTING);
-            System.out.println("Time: " + (System.currentTimeMillis() - t) +" ms");
-            System.out.println("Processed: " + String.valueOf(n)+" items");
         } catch (IOException ex) {
             Logger.getLogger(Diff.class.getName()).log(Level.SEVERE, null, ex);
         }

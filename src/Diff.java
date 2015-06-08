@@ -129,8 +129,6 @@ public class Diff {
                     continue;
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Diff.class.getName()).log(Level.SEVERE, null, ex);
         }
         return n;
     }
