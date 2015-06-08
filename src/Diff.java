@@ -12,8 +12,6 @@ import java.util.Comparator;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Отсеживание изменений в каталоге
@@ -24,10 +22,11 @@ public class Diff {
 
     /**
      * Рекурсивное сканирование файлов и каталогов
+     *
      * @param root корневая директория
      * @param path текущая директория
      * @param bw буфер для сохранения списка файлов и каталогов
-     * @throws IOException 
+     * @throws IOException
      */
     private static void scan(String root, File path, BufferedWriter bw) throws IOException {
         File[] list = path.listFiles();
@@ -54,11 +53,11 @@ public class Diff {
     }
 
     /**
-     * Создать снимок каталога, 
-     * сохранить список всех файлов и подкаталогов в файл
+     * Создать снимок каталога
+     *
      * @param path директория сканирования
      * @param out файл для сохранения снимка
-     * @throws IOException 
+     * @throws IOException
      */
     public static void snapshot(File path, File out) throws IOException {
         Charset cs = Charset.defaultCharset();
@@ -72,10 +71,11 @@ public class Diff {
 
     /**
      * Сравнение двух снимков
+     *
      * @param first файл предыдущего снимка
      * @param second файл текущего снимка
      * @return число обработанных строк снимка (файлов)
-     * @throws IOException 
+     * @throws IOException
      */
     public static long compare(File first, File second) throws IOException {
         long n = 0;
@@ -83,9 +83,9 @@ public class Diff {
         try (BufferedReader br1 = new BufferedReader(new InputStreamReader(
                 new GZIPInputStream(new FileInputStream(first)), cs));
                 BufferedReader br2 = new BufferedReader(new InputStreamReader(
-                new GZIPInputStream(new FileInputStream(second)), cs));) {
+                                new GZIPInputStream(new FileInputStream(second)), cs));) {
             String line1 = br1 == null ? null : br1.readLine(),
-                   line2 = br2 == null ? null : br2.readLine();
+                    line2 = br2 == null ? null : br2.readLine();
             while (line1 != null || line2 != null) {
                 n++;
                 String path1 = "", path2 = "";

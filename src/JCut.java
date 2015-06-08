@@ -44,8 +44,8 @@ public class JCut {
             Diff.snapshot(dir, snapshot);
             if (laststate.length() > 0) {
                 long n = Diff.compare(laststate, snapshot);
-                System.out.println("Time: " + (System.currentTimeMillis() - t) +" ms");
-                System.out.println("Processed: " + String.valueOf(n)+" items");
+                System.out.println("Time: " + (System.currentTimeMillis() - t) + " ms");
+                System.out.println("Processed: " + String.valueOf(n) + " items");
             }
             Files.move(snapshot.toPath(), laststate.toPath(), REPLACE_EXISTING);
         } catch (IOException ex) {
