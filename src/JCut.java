@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Отсеживание изменений в каталоге
+ * Отсеживание изменений в каталоге (главный класс)
  *
  * @author Anton Skshidlevsky
  */
@@ -42,9 +42,10 @@ public class JCut {
             File snapshot = File.createTempFile("snapshot", "gz");
             long t = System.currentTimeMillis();
             Diff.snapshot(dir, snapshot);
-            Diff.diff(laststate, snapshot);
+            long n = Diff.compare(laststate, snapshot);
             Files.move(snapshot.toPath(), laststate.toPath(), REPLACE_EXISTING);
-            System.out.println("Time (ms): " + (System.currentTimeMillis() - t));
+            System.out.println("Time: " + (System.currentTimeMillis() - t) +" ms");
+            System.out.println("Processed: " + String.valueOf(n)+" items");
         } catch (IOException ex) {
             Logger.getLogger(Diff.class.getName()).log(Level.SEVERE, null, ex);
         }
