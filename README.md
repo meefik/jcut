@@ -13,7 +13,7 @@ Usage:
 
 Example:
 
-    $ java -jar dist/jcut.jar /home/anton/tmp
+    $ java -jar jcut.jar /path/to/dir
     add	/test/dir1	0
     del	/test/aaa	0
     del	/test/dir2/file1	1433802787000
