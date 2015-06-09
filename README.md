@@ -14,10 +14,10 @@ Usage:
 Example:
 
     $ java -jar jcut.jar /path/to/dir
-    mod	/file1	1433802751000
     add	/dir1	0
     del	/dir2	0
     del	/dir2/file1	1433802787000
+    mod	/file1	1433802751000
     Time: 3742 ms
     Processed: 209846 items
     Snapshot: 1384480 bytes
