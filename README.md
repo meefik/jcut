@@ -1,7 +1,7 @@
 jcut
 ====
 
-Copyright (C) 2013-2015 Anton Skshidlevsky
+Copyright (C) Anton Skshidlevsky
 
 Licensed under the [GPL version 3](http://www.gnu.org/licenses/) or later.
 
