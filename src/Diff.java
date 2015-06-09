@@ -41,14 +41,12 @@ public class Diff {
         });
         for (File f : list) {
             //System.out.println(f.getPath());
-            long lastModified = 0;
-            if (f.isDirectory()) {
-                scan(root, f, bw);
-            } else {
-                lastModified = f.lastModified();
-            }
+            long lastModified = f.isDirectory() ? 0 : f.lastModified();
             bw.write(f.getPath().replaceFirst(root, "") + "\t"
                     + String.valueOf(lastModified) + "\n");
+            if (lastModified == 0) {
+                scan(root, f, bw);
+            }
         }
     }
 
@@ -103,7 +101,7 @@ public class Diff {
                     cmp = 1;
                 }
                 if (line1 != null && line2 != null) {
-                    cmp = path2.compareTo(path1);
+                    cmp = path1.compareTo(path2);
                 }
                 if (cmp == 0) {
                     if (time1 > time2) {
