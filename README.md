@@ -20,5 +20,6 @@ Example:
     del	/dir2/file1	1433802787000
     Time: 3742 ms
     Processed: 209846 items
+    Snapshot: 1384480 bytes
 
 Output: operation / path / modification time (ms)
