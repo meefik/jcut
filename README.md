@@ -1,9 +1,7 @@
 jcut
 ====
 
-Copyright (C) Anton Skshidlevsky
-
-Licensed under the [GPL version 3](http://www.gnu.org/licenses/) or later.
+Copyright (C) Anton Skshidlevsky, [GPLv3](http://opensource.org/licenses/gpl-3.0.html)
 
 Java console application for tracking changes in the directory. It is started twice before and after the changes. When you first start is created a snapshot of the directory, and subsequent launches reflect the changes.
 
